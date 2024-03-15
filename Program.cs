@@ -31,51 +31,83 @@ namespace TodoBot
         private static int neIT = 0;
 
         private static Dictionary<long, int> userQuestionIndices = new Dictionary<long, int>();
+        private static Dictionary<string, string> answerTexts = new Dictionary<string, string>
+        {
+            { "question1_1", "1 - Письменная, через электронные сообщения или чаты.\n" },
+            { "question1_2", "2 - Устная, предпочитаю обсуждать все лично или по телефону.\n" },
+            { "question1_3", "3 - Не люблю людей\n" },
+            { "question2_1", "1 - Да, я люблю изучать новые технологии и находить способы их применения.\n" },
+            { "question2_2", "2 - Нет, я предпочитаю работать с тем, что уже знаю и что хорошо зарекомендовало себя.\n" },
+            { "question2_3", "3 - Мне ничего не нравится.\n" },
+            { "question3_1", "1 - Я предпочитаю работать самостоятельно.\n" },
+            { "question3_2", "2 - Я люблю работать в команде и считаю, что совместные усилия приводят к лучшим результатам.\n" },
+            { "question3_3", "3 -  Я не люблю работать\n" },
+            { "question4_1", "1 - Создание эффективного и оптимизированного кода.\n" },
+            { "question4_2", "2 - Работа над архитектурой проекта и распределение задач в команде.\n" },
+            { "question4_3", "3 - Анализ данных и поиск новых закономерностей.\n" },
+            { "question4_4", "4 - Что такое ПО ?\n" },
+            { "question5_1", "1 - Да, я люблю изучать новые технологии и находить способы их применения.\n" },
+            { "question5_2", "2 - Нет, я предпочитаю работать с тем, что уже знаю и что хорошо зарекомендовало себя.\n" },
+            { "question5_3", "3 - Мне ничего не нравится.\n" },
+            { "question6_1", "1 - Я предпочитаю посещать технические конференции и митапы.\n" },
+            { "question6_2", "2 - Я предпочитаю проводить время с друзьями или заниматься спортом.\n" },
+            { "question6_3", "3 - Спать.\n" },
+            { "question7_1", "1 - Соблюдение сроков и высокое качество кода.\n" },
+            { "question7_2", "2 - Коммуникация и взаимодействие между членами команды.\n" },
+            { "question7_3", "3 - Анализ данных и выявление трендов для принятия решений.\n" },
+            { "question7_4", "4 - Я не хочу в этом участвовать.\n" },
+            { "question8_1", "1 - Инновации - двигатель прогресса!\n" },
+            { "question8_2", "2 - Стабильность - безопасность и надежность важнее всего.\n" },
+            { "question9_1", "1 - Возможность создавать что-то новое и полезное.\n" },
+            { "question9_2", "2 - Успешное достижение целей и признание ваших достижений.\n" },
+            { "question9_3", "3 - Зарплата $.\n" }
+        };
         private static List<string> questions = new List<string> {
-            "Какой способ коммуникации вам ближе?:\n1 - Письменная, через электронные сообщения или чаты.\n"+
-            "2 - Устная, предпочитаю обсуждать все лично или по телефону.\n"+
-            "3 - Не люблю людей\n",
+            "Какой способ коммуникации вам ближе?:\n" +
+            answerTexts["question1_1"] +
+            answerTexts["question1_2"] +
+            answerTexts["question1_3"],
 
             "Вам нравится исследовать и экспериментировать с новыми технологиями?:\n" +
-            "1 - Да, я люблю изучать новые технологии и находить способы их применения.\n" +
-            "2 - Нет, я предпочитаю работать с тем, что уже знаю и что хорошо зарекомендовало себя.\n" +
-            "3 - Мне ничего не нравится.\n",
+            answerTexts["question2_1"] +
+            answerTexts["question2_2"] +
+            answerTexts["question2_3"],
 
             "Как вы относитесь к работе в команде?:\n" +
-            "1 - Я предпочитаю работать самостоятельно.\n" +
-            "2 - Я люблю работать в команде и считаю, что совместные усилия приводят к лучшим результатам.\n" +
-            "3 -  Я не люблю работать\n",
+            answerTexts["question3_1"] +
+            answerTexts["question3_2"] +
+            answerTexts["question3_3"],
 
             "Какой аспект разработки ПО вас больше всего привлекает?:\n" +
-            "1 - Создание эффективного и оптимизированного кода.\n" +
-            "2 - Работа над архитектурой проекта и распределение задач в команде.\n" +
-            "3 - Анализ данных и поиск новых закономерностей.\n" +
-            "4 - Что такое ПО ?\n",
+            answerTexts["question4_1"] +
+            answerTexts["question4_2"] +
+            answerTexts["question4_3"] +
+            answerTexts["question4_4"],
 
             "Вам нравится исследовать и экспериментировать с новыми технологиями?:\n" +
-            "1 - Да, я люблю изучать новые технологии и находить способы их применения.\n" +
-            "2 - Нет, я предпочитаю работать с тем, что уже знаю и что хорошо зарекомендовало себя.\n" +
-            "3 - Мне ничего не нравится.\n",
+            answerTexts["question5_1"] +
+            answerTexts["question5_2"] +
+            answerTexts["question5_3"],
 
-             "Какие мероприятия вы предпочитаете проводить в свободное время?:\n" +
-             "1 - Я предпочитаю посещать технические конференции и митапы.\n" +
-             "2 - Я предпочитаю проводить время с друзьями или заниматься спортом.\n " +
-             "3 - Спать.\n", 
-        
-             "Что вы считаете важным в процессе разработки ПО?:\n" +
-             "1 - Соблюдение сроков и высокое качество кода.\n" +
-             "2 - Коммуникация и взаимодействие между членами команды.\n " +
-             "3 - Анализ данных и выявление трендов для принятия решений.\n" +
-             "4 - Я не хочу в этом участвовать.", 
-            
-             "Что для вас важнее: инновации или стабильность?:\n" +
-             "1 - Инновации - двигатель прогресса!\n" +
-             "2 - Стабильность - безопасность и надежность важнее всего.\n ", 
-        
-             "Что вас больше всего мотивирует в работе?:\n" +
-             "1 - Возможность создавать что-то новое и полезное.\n" +
-             "2 - Успешное достижение целей и признание ваших достижений.\n " +
-             "3 - Зарплата $.\n",
+            "Какие мероприятия вы предпочитаете проводить в свободное время?:\n" +
+            answerTexts["question6_1"] +
+            answerTexts["question6_2"] +
+            answerTexts["question6_3"],
+
+            "Что вы считаете важным в процессе разработки ПО?:\n" +
+            answerTexts["question7_1"] +
+            answerTexts["question7_2"] +
+            answerTexts["question7_3"] +
+            answerTexts["question7_4"],
+
+            "Что для вас важнее: инновации или стабильность?:\n" +
+            answerTexts["question8_1"] +
+            answerTexts["question8_2"],
+
+            "Что вас больше всего мотивирует в работе?:\n" +
+            answerTexts["question9_1"] +
+            answerTexts["question9_2"] +
+            answerTexts["question9_3"],
         };
         private static List<List<(string, string)>> options = new List<List<(string, string)>>
      {
@@ -89,6 +121,8 @@ namespace TodoBot
         new List<(string, string)> { ("1", "question8_1"), ("2", "question8_2") }, 
         new List<(string, string)> { ("1", "question9_1"), ("2", "question9_2"), ("3", "question9_3") }
     };
+
+        
 
         public static int MaxOfFive(int a, int b, int c, int d, int e)
         {
@@ -249,7 +283,7 @@ namespace TodoBot
                         chatId: callbackQuery.Message.Chat.Id,
                         messageId: callbackQuery.Message.MessageId,
                         text: "Пол: Мужской",
-                        replyMarkup: callbackQuery.Message.ReplyMarkup);
+                        replyMarkup: null);
                         StartTest(botClient, chatId);
                         break;
 
@@ -259,7 +293,7 @@ namespace TodoBot
                          chatId: callbackQuery.Message.Chat.Id,
                          messageId: callbackQuery.Message.MessageId,
                          text: "Пол: Женский",
-                         replyMarkup: callbackQuery.Message.ReplyMarkup);
+                         replyMarkup: null);
                         StartTest(botClient, chatId);
                         break;
 
@@ -431,13 +465,23 @@ namespace TodoBot
                         StartTest(botClient, chatId);
                         break;
                 }
-               // Console.WriteLine(neIT);
+                // Console.WriteLine(neIT);
 
-                await botClient.EditMessageReplyMarkupAsync(
-                      chatId: callbackQuery.Message.Chat.Id,
-                      messageId: callbackQuery.Message.MessageId,
-                      replyMarkup: null
-                 );
+                //await botClient.EditMessageReplyMarkupAsync(
+                //      chatId: callbackQuery.Message.Chat.Id,
+                //      messageId: callbackQuery.Message.MessageId,
+                //      replyMarkup: null
+                // );
+
+                if (answerTexts.ContainsKey(callbackQuery.Data))
+                {
+                    await botClient.EditMessageTextAsync(
+                        chatId: callbackQuery.Message.Chat.Id,
+                        messageId: callbackQuery.Message.MessageId,
+                        text: answerTexts[callbackQuery.Data],
+                        replyMarkup: null
+                    );
+                }
             }   
 
             else if (update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
