@@ -168,7 +168,28 @@ namespace TodoBot
                 }
                else if (result == tester)
                 {
-
+                    if (cex == true)
+                    {
+                        using (var stream = new FileStream("Images\\girl-developer.jpg", FileMode.Open))
+                        {
+                            await botClient.SendPhotoAsync(
+                                chatId: chatId,
+                                photo: new InputFileStream(stream),
+                                caption: "Вы - тестировщик!"
+                            );
+                        }
+                    }
+                    else
+                    {
+                        using (var stream = new FileStream("Images\\man-tester.png", FileMode.Open))
+                        {
+                            await botClient.SendPhotoAsync(
+                                chatId: chatId,
+                                photo: new InputFileStream(stream),
+                                caption: "Вы - тестировщик!"
+                            );
+                        }
+                    }
                 }
                else if (result == dataAnalyst)
                 {
@@ -185,6 +206,7 @@ namespace TodoBot
              }
 
             async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
+
         {
            
                 //if (update.Message?.Sticker != null)
@@ -223,11 +245,21 @@ namespace TodoBot
 
                     case "callbackM":
                         cex = false;
+                        await botClient.EditMessageTextAsync(
+                        chatId: callbackQuery.Message.Chat.Id,
+                        messageId: callbackQuery.Message.MessageId,
+                        text: "Пол: Мужской",
+                        replyMarkup: callbackQuery.Message.ReplyMarkup);
                         StartTest(botClient, chatId);
                         break;
 
                     case "callbackW":
                         cex = true;
+                        await botClient.EditMessageTextAsync(
+                         chatId: callbackQuery.Message.Chat.Id,
+                         messageId: callbackQuery.Message.MessageId,
+                         text: "Пол: Женский",
+                         replyMarkup: callbackQuery.Message.ReplyMarkup);
                         StartTest(botClient, chatId);
                         break;
 
