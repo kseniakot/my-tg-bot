@@ -293,7 +293,12 @@ namespace TestBot
                             );
                         }
                     }
-
+                    result = 0;
+                    teamlead = 0;
+                    dataAnalyst = 0;
+                    developer = 0;
+                    tester = 0;
+                    neIT = 0;
 
                 }
 
