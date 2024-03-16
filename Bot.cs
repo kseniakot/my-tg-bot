@@ -130,7 +130,14 @@ namespace TestBot
             Console.WriteLine(arg2); // Write the exception to the console
             return Task.CompletedTask;
         }
-
+        private static void Reset()
+        {
+            teamlead = 0;
+            dataAnalyst = 0;
+            developer = 0;
+            tester = 0;
+            neIT = 0;
+        }
 
         private static InlineKeyboardMarkup CreateMenu(List<(string ButtonText, string CallbackData)> buttons)
         {
@@ -293,12 +300,7 @@ namespace TestBot
                             );
                         }
                     }
-                    result = 0;
-                    teamlead = 0;
-                    dataAnalyst = 0;
-                    developer = 0;
-                    tester = 0;
-                    neIT = 0;
+                    
 
                 }
 
@@ -563,6 +565,7 @@ namespace TestBot
                     
                     if (message.Text.ToLower().Replace(" ", "").Contains("непока"))
                     {
+                        Reset();
                         var buttons = new List<(string ButtonText, string CallbackData)>
                         {
                             ("Да", "callbackYes"),
@@ -584,9 +587,10 @@ namespace TestBot
                     }
                     else
                     {
-                        if (isGreeting == true)
+                        if (isGreeting == true || message.Text.ToLower().StartsWith("/start"))
                         {
                             isGreeting = false;
+                            Reset();
 
                             var buttons = new List<(string ButtonText, string CallbackData)>
                         {
