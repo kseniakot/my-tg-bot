@@ -21,6 +21,7 @@ namespace TestBot
         private static int tester = 0;
         private static int dataAnalyst = 0;
         private static int neIT = 0;
+        private static bool isGreeting = true;
 
         private static Dictionary<long, int> userQuestionIndices = new Dictionary<long, int>();
         private static Dictionary<string, string> answerTexts = new Dictionary<string, string>
@@ -165,6 +166,7 @@ namespace TestBot
             {
                 await botClient.SendTextMessageAsync(chatId, "Необходимая информация собрана.");
                 userQuestionIndices[chatId] = 0;
+                isGreeting = true;
                 int result = MaxOfFive(teamlead, developer, tester, dataAnalyst, neIT);
 
                 if (result == teamlead)
@@ -553,23 +555,8 @@ namespace TestBot
                 var message = update.Message;
                 if (message.Text != null)
                 {
-                    if (message.Text.StartsWith("/start"))
-                    {
-                        var buttons = new List<(string ButtonText, string CallbackData)>
-                        {
-                            ("Да", "callbackYes"),
-                            ("Нет", "callbackNo")
-                        };
-
-                        var keyboard = CreateMenu(buttons);
-
-                        await botClient.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: "Привет! Готов начать тест:",
-                            replyMarkup: keyboard
-                        );
-                    }
-                    else if (message.Text.ToLower().Replace(" ", "").Contains("непока"))
+                    
+                    if (message.Text.ToLower().Replace(" ", "").Contains("непока"))
                     {
                         var buttons = new List<(string ButtonText, string CallbackData)>
                         {
@@ -590,6 +577,29 @@ namespace TestBot
                                 chatId: message.Chat.Id,
                                 sticker: InputFile.FromString("CAACAgIAAxkBAAOeZfMRnr_778fru7djH6LSaCGt4XUAAoI1AAKGOkBJymwZQAAB6IpbNAQ"));
                     }
+                    else
+                    {
+                        if (isGreeting == true)
+                        {
+                            isGreeting = false;
+
+                            var buttons = new List<(string ButtonText, string CallbackData)>
+                        {
+                            ("Да", "callbackYes"),
+                            ("Нет", "callbackNo")
+                        };
+
+                            var keyboard = CreateMenu(buttons);
+
+                            await botClient.SendTextMessageAsync(
+                                chatId: message.Chat.Id,
+                                text: "Привет! Готов начать тест:",
+                                replyMarkup: keyboard
+                            );
+                        }
+                        
+                    }
+                    
                 }
             }
         }
